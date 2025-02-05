@@ -1,11 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+import { createContext, useState } from "react";
+import "./App.css";
+import Menu from "./component/Menu";
+import Quiz from "./component/Quiz";
+import Score from "./component/Score";
+import './App.css'
+
+export const DataContext = createContext();
 
 function App() {
+  const [appState, setAppState] = useState("menu");
+  const [score, setScore] = useState(0)
   return (
-    <div className = "App">
+    <DataContext.Provider value={{ appState, setAppState, score, setScore }}>
+      <div className="App">
         <h1>Web Development Quiz</h1>
-    </div>
+        {appState === "menu" && <Menu />}
+        {appState === "quiz" && <Quiz />}
+        {appState === "score" && <Score />}
+      </div>
+    </DataContext.Provider>
   );
 }
 
